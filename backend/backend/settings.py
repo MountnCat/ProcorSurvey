@@ -14,6 +14,7 @@ from pathlib import Path
 from datetime import timedelta
 from dotenv import load_dotenv
 import os
+from tzlocal import get_localzone
 
 load_dotenv()
 
@@ -56,9 +57,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    "api",
-    "rest_framework",
-    "corsheaders",
+    'api',
+    'rest_framework',
+    'corsheaders',
+
+   'django_otp',
+   'django_otp.plugins.otp_totp',
 ]
 
 MIDDLEWARE = [
@@ -67,6 +71,9 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+
+   'django_otp.middleware.OTPMiddleware',
+
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
@@ -129,7 +136,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = '{}'.format(get_localzone())
 
 USE_I18N = True
 
